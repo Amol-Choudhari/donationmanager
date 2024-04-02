@@ -44,8 +44,9 @@ public class DaoConfig {
  
     private final Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
-        // hibernateProperties.setProperty("spring.jpa.hibernate.ddl", "update");
-        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
+        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        //hibernateProperties.setProperty("hibernate.connection.storage_engine", "InnoDB");
         return hibernateProperties;
     }
 }

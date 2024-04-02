@@ -1,6 +1,6 @@
 package com.donation.donationmanager.repository;
 
-import java.util.stream.Stream;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,14 +21,14 @@ public class UserDao {
 	@Autowired
     private SessionFactory sessionFactory;
  
-    public Stream<User> getUers() {
+    public List<User> getUsers() {
         Session session = null;
         Transaction transaction = null;
-        Stream<User> users = null;
+        List<User> users = null;
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            users = session.createQuery("select * from users", User.class).stream();
+            users = session.createQuery("FROM User", User.class).getResultList();
           //  session.find(null, users)
             transaction.commit();
         } catch (Exception e) {
@@ -41,4 +41,20 @@ public class UserDao {
         }
         return users;
     }
+    
+    
+    public boolean addUser(User user) {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            session.save(user);
+            return true;
+        } catch (Exception e) {
+            log.error("Exception occurred", e);
+            return false;
+        } finally {
+            session.close();
+        }
+    }
+    
 }
