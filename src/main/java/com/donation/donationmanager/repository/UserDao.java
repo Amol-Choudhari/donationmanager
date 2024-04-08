@@ -57,4 +57,20 @@ public class UserDao {
         }
     }
     
+    
+    /*public boolean addUser(User user) {
+
+        //try(Session session = sessionFactory.openSession()){
+        //	session.save(user);
+        //	return true;
+        //}
+        try(Resource r= new Resource()){
+        	r.getI();
+        	return true;
+        }
+        catch(IOException e) {
+        	return false;
+        }
+    }*/
+    
 }
