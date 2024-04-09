@@ -11,6 +11,9 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.donation.donationmanager.repository.UserRepository;
+import com.donation.donationmanager.repositoryImpl.UserRepositoryImpl;
  
 @Configuration
 @EnableTransactionManagement
@@ -31,7 +34,7 @@ public class DaoConfig {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/donationmanager");
         dataSource.setUsername("root");
-        dataSource.setPassword("Admin@302");
+        dataSource.setPassword("amy@cho27");
         return dataSource;
     }
  
@@ -48,5 +51,11 @@ public class DaoConfig {
         hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
         //hibernateProperties.setProperty("hibernate.connection.storage_engine", "InnoDB");
         return hibernateProperties;
+    }
+    
+    @Bean
+    public UserRepository userrepository() {
+    	UserRepository userrepository = new UserRepositoryImpl();
+        return userrepository;
     }
 }

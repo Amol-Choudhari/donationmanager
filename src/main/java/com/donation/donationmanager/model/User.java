@@ -1,5 +1,4 @@
 package com.donation.donationmanager.model;
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,47 +20,42 @@ import lombok.Setter;
  */
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
-public class User implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 65981149772133526L;
-
+public class User {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-
-	@Column(name = "idtype")
-	private String idtype;
-
-	@Column(name = "idnumber")
-	private String idNumber;
 	
+	@Column(nullable=false)
+	private String name;
+	
+	@Column(nullable=false)
+	private int mobile;
+	
+	@Column(nullable=false)
+	private int age;
+	
+	@Column(nullable=false)
+	private String gender;
+	
+	@Column
 	private String email;
-
-	@Column(name = "enabled", columnDefinition = "BIT", length = 1)
-	private boolean enabled;
-
-	@Column(name = "DISPLAY_NAME")
-	private String displayName;
-
-	@Column(name = "created_date", nullable = false, updatable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	protected Date createdDate;
-
-	@Column(name = "modified_date", nullable = false, updatable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	protected Date modifiedDate;
-
+	
+	@Column(nullable=false)
 	private String password;
+	
+	/*@Column(nullable = false, updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Date created;
 
-	private String provider;
+	@Column(nullable = false, updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Date modified;*/
 	
 	
-
+	
 
 }
