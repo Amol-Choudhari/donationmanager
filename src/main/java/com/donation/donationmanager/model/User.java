@@ -1,13 +1,12 @@
 package com.donation.donationmanager.model;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.PrePersist;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,7 +32,7 @@ public class User {
 	private String name;
 	
 	@Column(nullable=false)
-	private int mobile;
+	private String mobile;
 	
 	@Column(nullable=false)
 	private int age;
@@ -41,21 +40,23 @@ public class User {
 	@Column(nullable=false)
 	private String gender;
 	
-	@Column
+	@Column(nullable=false)
 	private String email;
 	
 	@Column(nullable=false)
 	private String password;
 	
-	/*@Column(nullable = false, updatable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	protected Date created;
+	@Column
+	private LocalDate created;
 
-	@Column(nullable = false, updatable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	protected Date modified;*/
+	@Column
+	private LocalDate modified;
 	
-	
+	@PrePersist
+    public void prePersist() {
+		created = LocalDate.now();
+		modified = LocalDate.now();
+    }
 	
 
 }
