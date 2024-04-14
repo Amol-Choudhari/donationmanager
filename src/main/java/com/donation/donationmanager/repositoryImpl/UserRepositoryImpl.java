@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.donation.donationmanager.model.User;
@@ -59,6 +60,16 @@ public class UserRepositoryImpl implements UserRepository {
             session.beginTransaction();
             session.delete(entity);
             session.getTransaction().commit();
+        }
+    }
+    
+    @Override
+    public User findUserByUsername(String username) {
+        try (Session session = sessionFactory.openSession()) {
+        	Query<User> query = session.createQuery("FROM User where username=:username", User.class);
+        	query.setParameter("username", username);
+            List<User> users = query.getResultList();
+            return users.isEmpty() ? null : users.get(0);
         }
     }
 
