@@ -6,12 +6,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.donation.donationmanager.model.User;
 import com.donation.donationmanager.repository.UserRepository;
 
 import lombok.NoArgsConstructor;
 
+@Component
 @NoArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 	

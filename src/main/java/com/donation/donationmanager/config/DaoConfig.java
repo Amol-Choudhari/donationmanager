@@ -36,7 +36,7 @@ public class DaoConfig {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/donationmanager");
         dataSource.setUsername("root");
-        dataSource.setPassword("amy@cho27");
+        dataSource.setPassword("Admin@302");
         return dataSource;
     }
  
@@ -55,7 +55,7 @@ public class DaoConfig {
         return hibernateProperties;
     }
     
-    @Bean
+   /* @Bean
     public UserRepository userrepository() {
     	UserRepository userrepository = new UserRepositoryImpl();
         return userrepository;
@@ -64,5 +64,5 @@ public class DaoConfig {
     public DonationRepository donationrepository() {
     	DonationRepository donationrepository = new DonationRepositoryImpl();
         return donationrepository;
-    }
+    }*/
 }
