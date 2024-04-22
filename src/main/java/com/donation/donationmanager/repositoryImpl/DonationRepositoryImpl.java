@@ -5,12 +5,14 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.donation.donationmanager.model.Donation;
 import com.donation.donationmanager.repository.DonationRepository;
 
 import lombok.NoArgsConstructor;
 
+@Component
 @NoArgsConstructor
 public class DonationRepositoryImpl implements DonationRepository {
 	
