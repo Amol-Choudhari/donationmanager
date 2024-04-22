@@ -12,7 +12,9 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.donation.donationmanager.repository.DonationRepository;
 import com.donation.donationmanager.repository.UserRepository;
+import com.donation.donationmanager.repositoryImpl.DonationRepositoryImpl;
 import com.donation.donationmanager.repositoryImpl.UserRepositoryImpl;
  
 @Configuration
@@ -57,5 +59,10 @@ public class DaoConfig {
     public UserRepository userrepository() {
     	UserRepository userrepository = new UserRepositoryImpl();
         return userrepository;
+    }
+    @Bean
+    public DonationRepository donationrepository() {
+    	DonationRepository donationrepository = new DonationRepositoryImpl();
+        return donationrepository;
     }
 }
