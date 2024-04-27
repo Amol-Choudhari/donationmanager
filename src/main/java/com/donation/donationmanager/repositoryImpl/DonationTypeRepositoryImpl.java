@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.donation.donationmanager.model.Donation;
 import com.donation.donationmanager.model.DonationType;
@@ -13,6 +14,7 @@ import com.donation.donationmanager.repository.MasterRepository;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
+@Component
 public class DonationTypeRepositoryImpl implements MasterRepository<DonationType>{
 
 	@Autowired

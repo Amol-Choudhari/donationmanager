@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,6 +34,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Setter
 @Getter
+@Builder
 public class User {
 	
 	@Transient
@@ -68,6 +70,8 @@ public class User {
 
 	@Column
 	private LocalDate modified;
+	
+	private String jwtToken;
 	
 	@PrePersist
     public void prePersist() {
