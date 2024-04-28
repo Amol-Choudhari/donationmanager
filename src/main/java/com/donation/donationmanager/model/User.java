@@ -14,10 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
-import javax.persistence.Transient;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,8 +33,6 @@ import lombok.Setter;
 @Builder
 public class User {
 	
-	@Transient
-	@Autowired BCryptPasswordEncoder passwordEncoder;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -81,13 +75,13 @@ public class User {
 	
 	// Hash the password before setting it
     public void setPassword(String password) {
-        this.password = passwordEncoder.encode(password);
+        this.password = password;
     }
 
-    // Validate password by comparing the hashed password
-    public boolean isPasswordValid(String rawPassword) {
-        return passwordEncoder.matches(rawPassword, this.password);
-    }
+//    // Validate password by comparing the hashed password
+//    public boolean isPasswordValid(String rawPassword) {
+//        return passwordEncoder.matches(rawPassword, this.password);
+//    }
     
     
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,8 @@ public class UserController {
 
 	@Autowired private UserRepository userrepository;
 	
+	@Autowired BCryptPasswordEncoder passwordEncoder;
+	
 	@GetMapping("getusers")
 	public List<User> getAllUsers(){	
 		 return userrepository.findAll();		 
@@ -28,7 +31,8 @@ public class UserController {
 	
 	//@PostMapping(value="adduser",consumes="application/json")
 	@PostMapping("adduser")
-	public void addUser(@RequestBody User user){		
+	public void addUser(@RequestBody User user){
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userrepository.save(user);		 
 	}
 	
