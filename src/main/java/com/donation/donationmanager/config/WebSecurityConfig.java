@@ -25,38 +25,6 @@ import com.donation.donationmanager.security.JwtAuthenticationFilter;
 public class WebSecurityConfig {
 
     @Autowired
-    private UserDetailsService userDetailsService;
-
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.csrf(csrf -> csrf.disable())
-//                .authorizeHttpRequests((authorize) ->
-//                        authorize.requestMatchers("/index").permitAll()
-//                                .requestMatchers("/user/getusers").hasRole("admin")
-//                                .anyRequest().authenticated()
-//                ).formLogin(
-//                        form -> form
-//                                .loginPage("/login")
-//                                .loginProcessingUrl("/login")
-//                                .defaultSuccessUrl("/user/getusers")
-//                                .permitAll()
-//                ).logout(
-//                        logout -> logout
-//                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                                .permitAll()
-//                );
-//        return http.build();
-//    }
-//
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .userDetailsService(userDetailsService)
-//                .passwordEncoder(passwordEncoder());
-//    }
-    
-    
-    @Autowired
     private JwtAuthenticationEntryPoint point;
     @Autowired
     private JwtAuthenticationFilter filter;
@@ -66,23 +34,11 @@ public class WebSecurityConfig {
 
     	http.csrf(csrf -> csrf.disable())
     		.cors(cors -> cors.disable())
-    		.authorizeHttpRequests(authorize ->
-              authorize.
-                requestMatchers("/user/**").authenticated().requestMatchers("/auth/login").permitAll()
-                .anyRequest().authenticated())
+    		.authorizeHttpRequests(authorize ->authorize.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-    
-    @Bean
-    public static PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-    
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration builder) throws Exception {
-        return builder.getAuthenticationManager();
-    }
+
 }
