@@ -1,5 +1,7 @@
 package com.donation.donationmanager.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
 
 import com.donation.donationmanager.security.JwtAuthenticationEntryPoint;
 import com.donation.donationmanager.security.JwtAuthenticationFilter;
@@ -33,7 +36,13 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
     	http.csrf(csrf -> csrf.disable())
-    		.cors(cors -> cors.disable())
+    		.cors(cors -> cors.configurationSource(request -> {
+    	        CorsConfiguration configuration = new CorsConfiguration();
+    	        configuration.setAllowedOrigins(Arrays.asList("*"));
+    	        configuration.setAllowedMethods(Arrays.asList("*"));
+    	        configuration.setAllowedHeaders(Arrays.asList("*"));
+    	        return configuration;
+    	    }))
     		.authorizeHttpRequests(authorize ->authorize.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
