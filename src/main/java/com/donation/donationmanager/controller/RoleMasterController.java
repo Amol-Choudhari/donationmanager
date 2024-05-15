@@ -21,7 +21,7 @@ public class RoleMasterController extends MasterController<Role> {
 	@Autowired RoleMasterRepositoryImpl roleMasterRepositoryImpl;
 	
 	@GetMapping("fetchall")
-	public List<Role> getAllRecords(@PathVariable String masterId){
+	public List<Role> getAllRecords(){
 		 return roleMasterRepositoryImpl.findAll();		 
 	}
 	

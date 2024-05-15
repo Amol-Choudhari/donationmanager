@@ -33,8 +33,8 @@ public class Role {
 	@Column(nullable=false)
 	private String name;
 	
-	@ManyToMany(mappedBy="roles")
-    private List<User> users;
+	/*@ManyToMany(mappedBy="roles")
+    private List<User> users;*/
 	
 	@Column
 	private LocalDate created;
