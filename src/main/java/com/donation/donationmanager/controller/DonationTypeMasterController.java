@@ -21,7 +21,7 @@ public class DonationTypeMasterController extends MasterController<DonationType>
 	@Autowired DonationTypeRepositoryImpl donationTypeRepositoryImpl;
 	
 	@GetMapping("fetchall")
-	public List<DonationType> getAllRecords(@PathVariable String masterId){
+	public List<DonationType> getAllRecords(){
 		 return donationTypeRepositoryImpl.findAll();		 
 	}
 	

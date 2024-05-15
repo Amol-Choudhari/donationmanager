@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("master/")
+@RequestMapping("master")
 public abstract class MasterController <T> {
 	
 
 	
 	@GetMapping("fetchall")
-	public abstract List<T> getAllRecords(@PathVariable String masterId);
+	public abstract List<T> getAllRecords();
 	
 	//@PostMapping(value="adduser",consumes="application/json")
 	@PostMapping("addnew")
