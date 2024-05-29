@@ -44,7 +44,7 @@ public class Donation {
 	private int donation_type;
 	
 	@Column(nullable=false)
-	private String by_user;
+	private Long by_user;
 	
 	@Column(nullable=false)
 	private int transaction_no;
