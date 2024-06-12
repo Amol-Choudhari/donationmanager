@@ -1,5 +1,6 @@
 package com.donation.donationmanager.model;
 import java.time.LocalDate;
+import java.util.Random;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,8 +47,8 @@ public class Donation {
 	@Column(nullable=false)
 	private Long by_user;
 	
-	@Column(nullable=false)
-	private int transaction_no;
+	@Column(nullable=false, unique=true)
+    private int transaction_no;
 	
 	@Column
 	private LocalDate created;
@@ -56,9 +57,21 @@ public class Donation {
 	private LocalDate modified;
 	
 	@PrePersist
-    public void prePersist() {
-		created = LocalDate.now();
-		modified = LocalDate.now();
+	public void prePersist() {
+	    created = LocalDate.now();
+	    modified = LocalDate.now();
+	    if (transaction_no == 0) { // Check if transaction number is null or not set
+	        // Generate unique transaction number only if it's not set yet
+	        generateTransactionNumber();
+	    }
+	}
+	
+	// Method to generate unique transaction number
+    private void generateTransactionNumber() {
+        // Logic to generate unique transaction number, for example:
+        Random random = new Random();
+        transaction_no = random.nextInt(1000000); // Generates a random 6-digit number
+        // You can add additional logic here to ensure uniqueness
     }
 
 
