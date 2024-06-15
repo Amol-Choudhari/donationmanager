@@ -51,6 +51,9 @@ public class Donation {
     private int transaction_no;
 	
 	@Column
+	private String confirmation;
+	
+	@Column
 	private LocalDate created;
 
 	@Column
