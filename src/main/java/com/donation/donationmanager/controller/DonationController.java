@@ -55,7 +55,7 @@ public class DonationController {
         } catch (Exception e) {
             e.printStackTrace();
             
-            response.put("donationId",null);     	
+            response.put("lastDonaId",null);     	
             return ResponseEntity.ok(response); // Error occurred while adding Donation send null as response
         }
     }
@@ -65,32 +65,10 @@ public class DonationController {
 		 return donationrepository.findById(id); 
 	}
 	
-	/*@PutMapping("editdonation/{id}")
-	public ResponseEntity<Boolean> editDonation(@PathVariable("id") Long id,@RequestBody Donation donation){
-		try {
-			Donation existingDonation = donationrepository.findById(id);
-	        if (existingDonation != null) {
-	        	
-	        	//set values from existing record to fields which will not be updated through request data
-	        	donation.setId(id);
-	        	donation.setCreated(existingDonation.getCreated());
-	        	donation.setTransaction_no(existingDonation.getTransaction_no());
-	        	donation.setModified(LocalDate.now());
-	        	
-	        	//rest fields will be updated from the request data
-	        	donationrepository.update(donation);
-	        	return ResponseEntity.ok(true); // User updated successfully
-	        }else {
-	        	return ResponseEntity.ok(false);//user not found
-	        }
-		} catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.ok(false); // Error occurred while adding user
-        }
-	}*/
-	
 	@PutMapping("confirmdonation/{id}")
-	public ResponseEntity<Boolean> confirmDonation(@PathVariable("id") Long id,@RequestBody Donation donation){
+	public ResponseEntity<Map<String, Object>> confirmDonation(@PathVariable("id") Long id,@RequestBody Donation donation){
+		
+		Map<String, Object> response = new HashMap<>();
 		try {
 			Donation existingDonation = donationrepository.findById(id);
 	        if (existingDonation != null) {
@@ -99,18 +77,23 @@ public class DonationController {
 	        	donation.setId(id);
 	        	donation.setCreated(existingDonation.getCreated());
 	        	donation.setTransaction_no(existingDonation.getTransaction_no());
+	        	donation.setBy_user(existingDonation.getBy_user());
 	        	donation.setConfirmation("yes");
 	        	donation.setModified(LocalDate.now());
 	        	
 	        	//rest fields will be updated from the request data
 	        	donationrepository.update(donation);
-	        	return ResponseEntity.ok(true); // User updated successfully
+	        	
+	        	response.put("lastDonaId",donation.getId());     	
+	            return ResponseEntity.ok(response); // Donation confirmed successfully then send last donation id in response
 	        }else {
-	        	return ResponseEntity.ok(false);//user not found
+	        	response.put("lastDonaId",null);     	
+	            return ResponseEntity.ok(response); // Error occurred while confirming Donation send null as response
 	        }
 		} catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.ok(false); // Error occurred while adding user
+            response.put("lastDonaId",null);     	
+            return ResponseEntity.ok(response); // Error occurred while confirming Donation send null as response
         }
 	}
 	

@@ -31,7 +31,7 @@ public class DaoConfig {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/donationmanager");
         dataSource.setUsername("root");
-        dataSource.setPassword("Admin@302");
+        dataSource.setPassword("amy@cho27");
         return dataSource;
     }
  

@@ -7,8 +7,13 @@ import java.util.function.Function;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import com.donation.donationmanager.model.User;
+import com.donation.donationmanager.repository.UserRepository;
+import com.donation.donationmanager.repositoryImpl.UserRepositoryImpl;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
@@ -21,6 +26,7 @@ public class JwtHelper {
 	
 	//requirement :
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
+    @Autowired private UserRepository userrepository;
 
     //    public static final long JWT_TOKEN_VALIDITY =  60;
     private String secret = "afafasfafafasfasfasfafacasdasfasxASFACASDFACASDFASFASFDAFASFASDAADSCSDFADCVSGCFVADXCcadwavfsfarvf";
@@ -60,6 +66,8 @@ public class JwtHelper {
     //generate token for user
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        User userData = userrepository.findUserByUsername(userDetails.getUsername());
+        claims.put("userid",userData.getId());
         return doGenerateToken(claims, userDetails.getUsername());
     }
 

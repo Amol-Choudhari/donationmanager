@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.donation.donationmanager.model.Role;
 import com.donation.donationmanager.model.User;
 import com.donation.donationmanager.repository.UserRepository;
 
@@ -41,6 +42,7 @@ public class UserController {
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userrepository.save(user);
+            System.out.println("hello");
             return ResponseEntity.ok(true); // User added successfully
         } catch (Exception e) {
             e.printStackTrace();
