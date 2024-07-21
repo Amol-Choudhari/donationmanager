@@ -38,8 +38,8 @@ public class WebSecurityConfig {
     	http.csrf(csrf -> csrf.disable())
     		.cors(cors -> cors.configurationSource(request -> {
     	        CorsConfiguration configuration = new CorsConfiguration();
-    	        configuration.setAllowedOrigins(Arrays.asList("*"));
-    	        configuration.setAllowedMethods(Arrays.asList("*"));
+    	        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+    	        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT"));
     	        configuration.setAllowedHeaders(Arrays.asList("*"));
     	        return configuration;
     	    }))
