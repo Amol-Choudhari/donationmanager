@@ -42,7 +42,6 @@ public class UserController {
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userrepository.save(user);
-            System.out.println("hello");
             return ResponseEntity.ok(true); // User added successfully
         } catch (Exception e) {
             e.printStackTrace();
