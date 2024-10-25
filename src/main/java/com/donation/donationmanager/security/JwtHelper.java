@@ -46,7 +46,7 @@ public class JwtHelper {
         return claimsResolver.apply(claims);
     }
 
-    //for retrieveing any information from token we will need the secret key
+    //for retrieving any information from token we will need the secret key
     private Claims getAllClaimsFromToken(String token) {
         
     	// Parse the token using the new approach
@@ -68,6 +68,7 @@ public class JwtHelper {
         Map<String, Object> claims = new HashMap<>();
         User userData = userrepository.findUserByUsername(userDetails.getUsername());
         claims.put("userid",userData.getId());
+        claims.put("roles",userData.getRoles());
         return doGenerateToken(claims, userDetails.getUsername());
     }
 
