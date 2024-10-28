@@ -1,5 +1,6 @@
 package com.donation.donationmanager.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,5 @@ public interface DonationRepository {
     void save(Donation entity);
     void update(Donation entity);
     void delete(Donation entity);
+    List<Donation> findByFilters(LocalDate startDate, LocalDate endDate, Long userId);
 }
