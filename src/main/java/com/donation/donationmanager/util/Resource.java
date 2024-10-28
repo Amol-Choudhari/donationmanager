@@ -3,6 +3,9 @@ package com.donation.donationmanager.util;
 import java.io.Closeable;
 import java.io.IOException;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Resource implements Closeable {
 @Override
 public void close() throws IOException {
@@ -21,3 +24,4 @@ public void setI(int i) {
 }
 
 }
+
