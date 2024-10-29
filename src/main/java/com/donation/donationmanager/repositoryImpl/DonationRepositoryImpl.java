@@ -3,16 +3,11 @@ package com.donation.donationmanager.repositoryImpl;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,8 +22,6 @@ public class DonationRepositoryImpl implements DonationRepository {
 	
 	@Autowired
     private SessionFactory sessionFactory;
-	@PersistenceContext
-	private EntityManager entityManager;
     
     public DonationRepositoryImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -77,24 +70,31 @@ public class DonationRepositoryImpl implements DonationRepository {
     
     @Override
     public List<Donation> findByFilters(LocalDate startDate, LocalDate endDate, Long userId) {
-    	
-    	CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Donation> cq = cb.createQuery(Donation.class);
-        Root<Donation> donation = cq.from(Donation.class);
+        StringBuilder hql = new StringBuilder("FROM Donation d WHERE 1=1");
 
-        List<Predicate> predicates = new ArrayList<>();
-
-        if (startDate != null && endDate != null) {
-            predicates.add((Predicate) cb.between(donation.get("date"), startDate, endDate));
+        if (startDate != null) {
+            hql.append(" AND d.created >= :startDate");
         }
-
+        if (endDate != null) {
+            hql.append(" AND d.created <= :endDate");
+        }
         if (userId != null) {
-            predicates.add((Predicate) cb.equal(donation.get("user").get("id"), userId));
+            hql.append(" AND d.by_user = :userId");
         }
 
-        cq.where((javax.persistence.criteria.Predicate[]) predicates.toArray(new Predicate[0]));
+        Query<Donation> query = sessionFactory.getCurrentSession().createQuery(hql.toString(), Donation.class);
 
-        return entityManager.createQuery(cq).getResultList();
+        if (startDate != null) {
+            query.setParameter("startDate", startDate);
+        }
+        if (endDate != null) {
+            query.setParameter("endDate", endDate);
+        }
+        if (userId != null) {
+            query.setParameter("userId", userId);
+        }
+
+        return query.list();
     }
 
 
